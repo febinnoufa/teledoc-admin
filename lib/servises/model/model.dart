@@ -60,7 +60,7 @@ class DoctorApplicationModel {
       "genter": genter,
       "specialist": specialist,
       "bio": bio,
-      "password":password,
+      "password": password,
       "licensenumber": licensenumber,
       "experience": experience,
       "licenseimage": licenseimage

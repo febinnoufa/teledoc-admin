@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:teledocadmin/screens/auth/controller/auth_controller.dart';
 import 'package:teledocadmin/screens/home/screens/applications.dart';
 import 'package:teledocadmin/screens/home/screens/home_screen.dart';
 import 'package:water_drop_nav_bar/water_drop_nav_bar.dart';
@@ -13,6 +14,8 @@ class BotomNavigationBar extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<BotomNavigationBar> {
+
+  final AuthController loginController = Get.put(AuthController());
   final Color navigationBarColor = Colors.white;
   int selectedIndex = 0;
   late PageController pageController;
@@ -38,23 +41,9 @@ class _MyHomePageState extends State<BotomNavigationBar> {
             controller: pageController,
             children: <Widget>[
               const HomeScreen(),
-              // Container(
-              //   alignment: Alignment.center,
-              //   child: Icon(
-              //     Icons.bookmark_rounded,
-              //     size: 56,
-              //     color: Colors.amber[400],
-              //   ),
-              // ),
+             
               const DoctorApplications(),
-              // Container(
-              //   alignment: Alignment.center,
-              //   child: Icon(
-              //     Icons.favorite_rounded,
-              //     size: 56,
-              //     color: Colors.red[400],
-              //   ),
-              // ),
+              
               Container(
                 alignment: Alignment.center,
                 child: Icon(
@@ -65,10 +54,16 @@ class _MyHomePageState extends State<BotomNavigationBar> {
               ),
               Container(
                 alignment: Alignment.center,
-                child: Icon(
-                  Icons.folder_rounded,
-                  size: 56,
-                  color: Colors.blue[400],
+                child: InkWell(
+                  onTap: () {
+                    loginController.logout();
+                    
+                  },
+                  child: Icon(
+                    Icons.logout,
+                    size: 56,
+                    color: Colors.blue[400],
+                  ),
                 ),
               ),
             ],

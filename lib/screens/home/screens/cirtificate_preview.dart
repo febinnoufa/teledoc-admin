@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class CirtificatePreviewPage extends StatelessWidget {
    CirtificatePreviewPage({super.key,required this.heading,required this.image});
   var heading;

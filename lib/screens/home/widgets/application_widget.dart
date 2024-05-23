@@ -24,8 +24,10 @@ class ApplicationWidget extends StatelessWidget {
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (context, index) {
               var doc = snapshot.data!.docs[index];
+              var docid=snapshot.data!.docs[index].id;
+             
               
-              return DoctorCard(doc: doc);
+              return DoctorCard(doc: doc,docId: docid,);
             },
           );
         },
@@ -36,8 +38,9 @@ class ApplicationWidget extends StatelessWidget {
 
 class DoctorCard extends StatelessWidget {
   final QueryDocumentSnapshot doc;
+  final docId;
 
-   DoctorCard({super.key, required this.doc});
+   DoctorCard({super.key, required this.doc,required this.docId});
    final ApplicationController cntrl = Get.find();
 
   @override
@@ -53,7 +56,7 @@ class DoctorCard extends StatelessWidget {
               color: Colors.grey.withOpacity(0.3),
               spreadRadius: 5,
               blurRadius: 7,
-              offset: const Offset(0, 3), // changes position of shadow
+              offset: const Offset(0, 3), 
             ),
           ],
         ),
@@ -107,6 +110,7 @@ class DoctorCard extends StatelessWidget {
                 children: [
                   ElevatedButton(
                     onPressed: () {
+                       cntrl.docId =docId;
                       cntrl.data=doc;
                       Get.to(ApplicationPreview(
                         data: doc,
@@ -116,13 +120,13 @@ class DoctorCard extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.black,
                       primary: const Color.fromARGB(
-                          255, 237, 230, 230), // Text color
+                          255, 237, 230, 230), 
                       shape: RoundedRectangleBorder(
                         borderRadius:
-                            BorderRadius.circular(10), // Rounded corners
+                            BorderRadius.circular(10),
                         side: const BorderSide(
                             color: Colors.green,
-                            width: 2), // Border color and width
+                            width: 2),
                       ),
                     ),
                     child: const Text("View Details"),
@@ -134,18 +138,18 @@ class DoctorCard extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       // ignore: deprecated_member_use
                       primary: const Color.fromARGB(
-                          255, 0, 4, 7), // Background color
+                          255, 0, 4, 7), 
                       // ignore: deprecated_member_use
-                      onPrimary: Colors.white, // Text color
+                      onPrimary: Colors.white, 
                       shape: RoundedRectangleBorder(
                         borderRadius:
-                            BorderRadius.circular(10), // Rounded corners
+                            BorderRadius.circular(10), 
                         side: const BorderSide(
                             color: Colors.green,
-                            width: 2), // Border color and width
+                            width: 2), 
                       ),
                     ),
-                    child: const Text("Contact"),
+                    child: const Text("Remove"),
                   ),
                 ],
               ),
