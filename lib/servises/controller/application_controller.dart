@@ -1,58 +1,48 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:get/get.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 import 'package:teledocadmin/servises/model/model.dart';
-//import 'package:http/http.dart' as http;
 
 class ApplicationController extends GetxController {
-  // ignore: prefer_typing_uninitialized_variables
   var data;
-  TextEditingController passwordcontroller = TextEditingController();
-  TextEditingController emailcontroller = TextEditingController();
-  FirebaseFirestore db = FirebaseFirestore.instance;
-  FirebaseAuth auth = FirebaseAuth.instance;
-  // ignore: prefer_typing_uninitialized_variables
+  final TextEditingController passwordcontroller = TextEditingController();
+  final TextEditingController emailcontroller = TextEditingController();
+  final FirebaseFirestore db = FirebaseFirestore.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
   var docId;
-  var uiddata;
+  var uidData;
 
-  approovdoctor() async {
+  Future<void> approovdoctor() async {
     try {
-       uiddata=
-      createUserWithEmailAndPassword(
+      uidData = await createUserWithEmailAndPassword(
           emailcontroller.text, passwordcontroller.text);
-       //   print("###########${uiddata}");
-
-      creatdoctor();
+      if (uidData != null) {
+        await createDoctor();
+        await sendEmail();
+      }
     } catch (e) {
-      Get.snackbar("error", "$e", duration: const Duration(seconds: 4));
+      Get.snackbar("Error", e.toString(), duration: Duration(seconds: 4));
     }
   }
 
-   createUserWithEmailAndPassword(String email, String password) async {
+  Future<UserCredential?> createUserWithEmailAndPassword(
+      String email, String password) async {
     try {
       if (email.isEmpty || password.isEmpty) {
         throw Exception('Email and password cannot be empty.');
       }
-      // Call Firebase createUserWithEmailAndPassword method here
-     final iddata= await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      print("::::::::::::::$iddata");
-      return iddata;
-      // User created successfully, proceed with your logic
+      return await auth.createUserWithEmailAndPassword(
+          email: email, password: password);
     } catch (e) {
       print('Error creating user: $e');
-      // Handle and display error to the user
-      // You can use Get.snackbar or other methods for showing errors
+      return null;
     }
   }
 
-  creatdoctor() async {
+  Future<void> createDoctor() async {
     DoctorApplicationModel application = DoctorApplicationModel(
       bio: data["bio"],
       email: emailcontroller.text.trim(),
@@ -69,8 +59,8 @@ class ApplicationController extends GetxController {
       password: passwordcontroller.text.trim(),
     );
     await db
-        .collection("approoveddoctors")
-        .doc(uiddata.user!.uid)
+        .collection("approveddoctors")
+        .doc(uidData.user!.uid)
         .set(application.toMap());
   }
 
@@ -98,46 +88,4 @@ class ApplicationController extends GetxController {
           'Error sending email: ..........................................................................$e');
     }
   }
-
-  //  emailsend()async{
-  //   try {
-  //     var userEmail ="teledoc00@gmail.com";
-  //     var message=Message();
-  //     message.subject="subject from flutter";
-  //     message.text="Hey... send from flutter";
-  //     message.from= Address(userEmail.toString());
-  //     message.recipients.add(userEmail);
-  //     var smtpServer =gmailSaslXoauth2(userEmail, "ktupvgeqontofkdr");
-  //     send(message, smtpServer);
-  //     print("email has bees sent seccessfully...................................................");
-
-  //   } catch (e) {
-  //     print("${e.toString()}..............................................");
-
-  //   }
-  //  }
-  // sendeEmail()async{
-  //   final Email email =Email(
-  //     body: passwordcontroller.text,
-  //     subject: "its your password",
-  //     recipients: [emailcontroller.text],
-  //     isHTML: false
-  //   );
-  //   await FlutterEmailSender.send(email);
-
-  // }
-
-  // sendemail()async{
-  //  final url =Uri.parse("https://api.emailjs.com/api/v1.0/email/send");
-  //  const serviseid="service_t9x60bm";
-  //  const templateid="template_wuvik2g";
-  //  const userid="";
-
-  //  final response = await  http.post(url,
-  //  headers: {'Content-Type':'application/json'},
-  //  body: json.encode({
-  //   "service_id":
-  //  })
-  //  )
-  // }
 }

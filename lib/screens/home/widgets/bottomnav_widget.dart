@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:teledocadmin/const/const.dart';
+import 'package:teledocadmin/screens/settings/screen/settings.dart';
 import 'package:teledocadmin/screens/auth/controller/auth_controller.dart';
 import 'package:teledocadmin/screens/home/screens/applications.dart';
 import 'package:teledocadmin/screens/home/screens/home_screen.dart';
@@ -43,15 +45,16 @@ class _MyHomePageState extends State<BotomNavigationBar> {
               const HomeScreen(),
              
               const DoctorApplications(),
+           
               
-              Container(
-                alignment: Alignment.center,
-                child: Icon(
-                  Icons.email_rounded,
-                  size: 56,
-                  color: Colors.green[400],
-                ),
-              ),
+              // Container(
+              //   alignment: Alignment.center,
+              //   child: Icon(
+              //     Icons.email_rounded,
+              //     size: 56,
+              //     color: Colors.green[400],
+              //   ),
+              // ),
               Container(
                 alignment: Alignment.center,
                 child: InkWell(
@@ -66,6 +69,7 @@ class _MyHomePageState extends State<BotomNavigationBar> {
                   ),
                 ),
               ),
+                 SettingsPage(),
             ],
           ),
           bottomNavigationBar: WaterDropNavBar(
