@@ -44,6 +44,7 @@ class ApplicationController extends GetxController {
 
   Future<void> createDoctor() async {
     DoctorApplicationModel application = DoctorApplicationModel(
+      id:uidData.user!.uid,
       bio: data["bio"],
       email: emailcontroller.text.trim(),
       experience: data["experience"],

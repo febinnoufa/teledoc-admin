@@ -34,7 +34,7 @@ class DoctorApplicationModel {
 
   factory DoctorApplicationModel.fromMap(DocumentSnapshot map) {
     return DoctorApplicationModel(
-      id: map.id,
+      id: map["id"],
       name: map["name"],
       place: map["place"],
       email: map["email"],
@@ -52,6 +52,7 @@ class DoctorApplicationModel {
 
   Map<String, dynamic> toMap() {
     return {
+      "id":id,
       "name": name,
       "place": place,
       "email": email,
