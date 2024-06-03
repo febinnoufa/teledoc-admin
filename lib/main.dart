@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:teledocadmin/screens/splash/ssplash_screen.dart';
+import 'package:teledocadmin/views/screens/splash/ssplash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:teledocadmin/servises/controller/application_controller.dart';
+import 'package:teledocadmin/controllers/applicaton/application_controller.dart';
 import 'firebase_options.dart';
 
 void main() async {

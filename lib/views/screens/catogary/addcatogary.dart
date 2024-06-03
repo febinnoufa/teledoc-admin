@@ -1,0 +1,155 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:teledocadmin/controllers/catogary/catogarycontroller.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:teledocadmin/model/catogary/catogary.dart';
+
+class CategoryPage extends StatelessWidget {
+  const CategoryPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final controller = Get.put(CategoryController());
+
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        centerTitle: true,
+        title: const Text(
+          'Category',
+          style: TextStyle(color: Colors.black),
+        ),
+      ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              TextField(
+                controller: controller.catogarycontroller,
+                decoration: InputDecoration(
+                  labelText: 'Category Name',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  prefixIcon: const Icon(Icons.category),
+                ),
+                style: const TextStyle(fontSize: 18.0),
+              ),
+              const SizedBox(height: 16.0),
+              ElevatedButton(
+                onPressed: () {
+                  controller.pickImage();
+                },
+                child: const Text('Pick Image'),
+              ),
+              const SizedBox(
+                height: 40,
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  final name = controller.catogarycontroller.text.trim();
+                  final image = controller.image;
+                  if (image != null) {
+                    final imageUrl = await controller.uploadImage(image);
+                    if (imageUrl != null) {
+                      controller.addCategory(name, imageUrl);
+                      controller.addCategoryToFirebase(name, imageUrl);
+                      controller.catogarycontroller.clear();
+                    } else {
+                      Get.snackbar("Error", "Failed to upload image",
+                          snackPosition: SnackPosition.BOTTOM);
+                    }
+                  } else {
+                    Get.snackbar("Error", "Please pick an image",
+                        snackPosition: SnackPosition.BOTTOM);
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.blue[600],
+                  elevation: 5.0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+                child: const Text('Add Category'),
+              ),
+              _buildImagePreview(controller),
+              const SizedBox(height: 16.0),
+              Expanded(
+                child: _buildCategoryList(),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildImagePreview(CategoryController controller) {
+    return controller.image != null
+        ? Image.file(
+            controller.image!,
+            height: 200,
+          )
+        : const SizedBox();
+  }
+
+  Widget _buildCategoryList() {
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance.collection('categories').snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        }
+
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        }
+
+        final List<DocumentSnapshot> documents = snapshot.data!.docs;
+
+        return ListView.builder(
+          itemCount: documents.length,
+          itemBuilder: (context, index) {
+            final category = Category.fromMap(
+                documents[index].data() as Map<String, dynamic>);
+            return Column(
+              children: [
+                const SizedBox(
+                  height: 10,
+                ),
+                ListTile(
+                  title: Text(category.name),
+                  leading: Image.network(category.image),
+                  trailing: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.blue,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    height: 35,
+                    width: 60,
+                    child: Center(
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.edit,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+}
