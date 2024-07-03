@@ -5,7 +5,7 @@ import 'package:teledocadmin/const/const.dart';
 import 'package:teledocadmin/views/screens/settings/settings.dart';
 import 'package:teledocadmin/controllers/Auth/auth_controller.dart';
 import 'package:teledocadmin/views/screens/applications/applications.dart';
-import 'package:teledocadmin/views/screens/Home/home_screen.dart';
+import 'package:teledocadmin/views/screens/home/home_screen.dart';
 import 'package:water_drop_nav_bar/water_drop_nav_bar.dart';
 
 class BotomNavigationBar extends StatefulWidget {
@@ -46,34 +46,14 @@ class _MyHomePageState extends State<BotomNavigationBar> {
              
               const DoctorApplications(),
            
-              
-              // Container(
-              //   alignment: Alignment.center,
-              //   child: Icon(
-              //     Icons.email_rounded,
-              //     size: 56,
-              //     color: Colors.green[400],
-              //   ),
-              // ),
-              Container(
-                alignment: Alignment.center,
-                child: InkWell(
-                  onTap: () {
-                    loginController.logout();
-                    
-                  },
-                  child: Icon(
-                    Icons.logout,
-                    size: 56,
-                    color: Colors.blue[400],
-                  ),
-                ),
-              ),
-               const  SettingsPage(),
+       
+              SettingsPage(),
             ],
           ),
           bottomNavigationBar: WaterDropNavBar(
-            backgroundColor: navigationBarColor,
+           // backgroundColor: Colors.black,
+            waterDropColor: Colors.green,
+            inactiveIconColor: Colors.black,
             onItemSelected: (int index) {
               setState(() {
                 selectedIndex = index;
@@ -91,10 +71,10 @@ class _MyHomePageState extends State<BotomNavigationBar> {
               BarItem(
                   filledIcon: Icons.local_hospital,
                   outlinedIcon: Icons.local_hospital_outlined),
-              BarItem(
-                filledIcon: Icons.notification_important,
-                outlinedIcon: Icons.notification_important_outlined,
-              ),
+              // BarItem(
+              //   filledIcon: Icons.notification_important,
+              //   outlinedIcon: Icons.notification_important_outlined,
+              // ),
               BarItem(
                 filledIcon: Icons.grid_view_rounded,
                 outlinedIcon: Icons.grid_view_outlined,

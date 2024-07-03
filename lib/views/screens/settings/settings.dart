@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:teledocadmin/controllers/Auth/auth_controller.dart';
 import 'package:teledocadmin/views/screens/catogary/addcatogary.dart';
 
 class SettingsPage extends StatelessWidget {
-  const SettingsPage({super.key});
+   SettingsPage({super.key});
 
+  final AuthController cntr= Get.put(AuthController());
   void _showModalBottomSheet(BuildContext context) {
     showModalBottomSheet(
       backgroundColor: Colors.green,
@@ -15,40 +17,28 @@ class SettingsPage extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              ListTile(
-                leading: const Icon(Icons.category_sharp),
-                title: const Text('Add catogary'),
-                onTap: () {
-                  Get.to(const CategoryPage());
-                  // Handle the action here
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.notifications),
-                title: const Text('Notifications'),
-                onTap: () {
-                  // Handle the action here
-                },
-              ),
+          
               ListTile(
                 leading: const Icon(Icons.settings),
                 title: const Text('Settings'),
                 onTap: () {
-                  // Handle the action here
+            
                 },
               ),
               ListTile(
                 leading: const Icon(Icons.help),
                 title: const Text('Help & Feedback'),
                 onTap: () {
-                  // Handle the action here
+                
                 },
               ),
               ListTile(
                 leading: const Icon(Icons.logout),
                 title: const Text('Logout'),
                 onTap: () {
-                  // Handle the action here
+                  cntr.logout();
+
+            
                 },
               ),
             ],
@@ -81,12 +71,7 @@ class SettingsPage extends StatelessWidget {
           )
         ],
       ),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[],
-        ),
-      ),
+      body:const CategoryPage()
     );
   }
 }

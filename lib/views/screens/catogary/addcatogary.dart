@@ -11,17 +11,9 @@ class CategoryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(CategoryController());
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: true,
-        title: const Text(
-          'Category',
-          style: TextStyle(color: Colors.black),
-        ),
-      ),
-      body: Center(
+    return 
+ 
+       Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -42,6 +34,10 @@ class CategoryPage extends StatelessWidget {
                 onPressed: () {
                   controller.pickImage();
                 },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                      Colors.green), // Change the color here
+                ),
                 child: const Text('Pick Image'),
               ),
               const SizedBox(
@@ -68,8 +64,9 @@ class CategoryPage extends StatelessWidget {
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
-                  backgroundColor: Colors.blue[600],
-                  elevation: 5.0,
+                  backgroundColor: Colors.green,
+                  elevation: 10.0,
+                  fixedSize:const Size(2000, 10),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
@@ -84,8 +81,8 @@ class CategoryPage extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
+      );
+   // );
   }
 
   Widget _buildImagePreview(CategoryController controller) {
@@ -123,7 +120,12 @@ class CategoryPage extends StatelessWidget {
                 ),
                 ListTile(
                   title: Text(category.name),
-                  leading: Image.network(category.image),
+                  leading: Container(
+                      decoration: BoxDecoration(border: Border.all()),
+                      child: Image.network(
+                        category.image,
+                        height: 100,
+                      )),
                   trailing: Container(
                     decoration: BoxDecoration(
                       color: Colors.blue,
@@ -142,8 +144,12 @@ class CategoryPage extends StatelessWidget {
                     ),
                   ),
                 ),
+              const  Divider(
+                  thickness: 2,
+                  color: Colors.black,
+                ),
                 const SizedBox(
-                  height: 10,
+                  height: 5,
                 ),
               ],
             );

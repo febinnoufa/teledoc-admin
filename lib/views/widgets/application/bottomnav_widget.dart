@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:teledocadmin/views/screens/settings/settings.dart';
 import 'package:teledocadmin/controllers/Auth/auth_controller.dart';
 import 'package:teledocadmin/views/screens/applications/applications.dart';
-import 'package:teledocadmin/views/screens/Home/home_screen.dart';
+import 'package:teledocadmin/views/screens/home/home_screen.dart';
 import 'package:water_drop_nav_bar/water_drop_nav_bar.dart';
 
 class BotomNavigationBar extends StatefulWidget {
@@ -68,7 +68,7 @@ class _MyHomePageState extends State<BotomNavigationBar> {
                   ),
                 ),
               ),
-                const SettingsPage(),
+                 SettingsPage(),
             ],
           ),
           bottomNavigationBar: WaterDropNavBar(

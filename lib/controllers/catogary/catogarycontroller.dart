@@ -16,14 +16,14 @@ class CategoryController extends GetxController {
   final catogarycontroller = TextEditingController();
   final ImagePicker _picker = ImagePicker();
  late File? _image = null;
- // Initialize with null
+
 
   Future<void> pickImage() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
       _image = File(pickedFile.path);
-      update(); // Notify UI about changes
+      update();
     } else {
       print('No image selected.');
     }
@@ -36,7 +36,7 @@ class CategoryController extends GetxController {
       return;
     }
     categories.add(Category(name: name, id: '', image: image));
-    update(); // Notify UI about changes
+    update();
   }
 
   Future<void> addCategoryToFirebase(String name, String imageUrl) async {

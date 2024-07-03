@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:teledocadmin/views/widgets/login/login_forms.dart';
 
 class LoginScreen extends StatelessWidget {
+  // ignore: use_key_in_widget_constructors
   const LoginScreen({Key? key});
 
   @override

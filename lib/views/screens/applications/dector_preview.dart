@@ -224,10 +224,6 @@ class ApplicationPreview extends StatelessWidget {
 
           const Center(child: ApplicationApproovButton()),
 
-          // const SizedBox(
-          //   height: 10,
-          // ),
-          // Text("${data["bio"]}")
         ],
       ),
     ));
