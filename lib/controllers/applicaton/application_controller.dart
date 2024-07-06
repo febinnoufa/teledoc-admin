@@ -8,7 +8,7 @@ import 'package:teledocadmin/model/application/model.dart';
 
 class ApplicationController extends GetxController {
   // ignore: prefer_typing_uninitialized_variables
-   // ignore: prefer_typing_uninitialized_variables
+  // ignore: prefer_typing_uninitialized_variables
   var docId;
   // ignore: prefer_typing_uninitialized_variables
   var uidData;
@@ -18,7 +18,6 @@ class ApplicationController extends GetxController {
   final TextEditingController emailcontroller = TextEditingController();
   final FirebaseFirestore db = FirebaseFirestore.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
- 
 
   Future<void> approovdoctor() async {
     try {
@@ -49,7 +48,7 @@ class ApplicationController extends GetxController {
 
   Future<void> createDoctor() async {
     DoctorApplicationModel application = DoctorApplicationModel(
-      id:uidData.user!.uid,
+      id: uidData.user!.uid,
       bio: data["bio"],
       email: emailcontroller.text.trim(),
       experience: data["experience"],
