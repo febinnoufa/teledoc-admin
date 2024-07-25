@@ -9,18 +9,25 @@ class DoctorApplications extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("APPLICATIONS",style: TextStyle(color: Colors.black),),centerTitle: true,
+          title: const Text(
+            "APPLICATIONS",
+            style: TextStyle(color: Colors.black),
+          ),
+          centerTitle: true,
           backgroundColor: Colors.white,
           elevation: 0,
-
         ),
-        body:  Column(
-          children: [
-            
-            ApplicationWidget()
-          ],
+        body: LayoutBuilder(
+          builder: (context, constraints) {
+            return Column(
+              children: [
+                ApplicationWidget(
+                  constraints: constraints,
+                )
+              ],
+            );
+          },
         ),
-        
       ),
     );
   }

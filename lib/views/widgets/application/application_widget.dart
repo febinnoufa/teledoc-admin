@@ -1,12 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:teledocadmin/views/screens/applications/dector_preview.dart';
+
 import 'package:teledocadmin/controllers/applicaton/application_controller.dart';
 import 'package:teledocadmin/views/widgets/application/card.dart';
 
 class ApplicationWidget extends StatelessWidget {
-  ApplicationWidget({super.key});
+  final BoxConstraints constraints;
+
+  ApplicationWidget({super.key, required this.constraints});
+
   final ApplicationController cntrl = Get.find();
 
   @override
@@ -31,9 +34,15 @@ class ApplicationWidget extends StatelessWidget {
                     var doc = snapshot.data!.docs[index];
                     var docid = snapshot.data!.docs[index].id;
 
-                    return DoctorCard(
-                      doc: doc,
-                      docId: docid,
+                    return Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: constraints.maxWidth * 0.05,
+                        vertical: constraints.maxHeight * 0.01,
+                      ),
+                      child: DoctorCard(
+                        doc: doc,
+                        docId: docid,
+                      ),
                     );
                   },
                 );

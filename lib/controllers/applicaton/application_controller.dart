@@ -19,6 +19,12 @@ class ApplicationController extends GetxController {
   final FirebaseFirestore db = FirebaseFirestore.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
 
+
+
+
+   // Approve Doctor
+  //************************************************************************** */
+
   Future<void> approovdoctor() async {
     try {
       uidData = await createUserWithEmailAndPassword(
@@ -32,6 +38,13 @@ class ApplicationController extends GetxController {
     }
   }
 
+
+
+
+
+   // Create Doctor
+  //************************************************************************** */
+
   Future<UserCredential?> createUserWithEmailAndPassword(
       String email, String password) async {
     try {
@@ -41,10 +54,18 @@ class ApplicationController extends GetxController {
       return await auth.createUserWithEmailAndPassword(
           email: email, password: password);
     } catch (e) {
-      print('Error creating user: $e');
+     // print('Error creating user: $e');
       return null;
     }
   }
+
+
+
+
+
+
+   // Add Doctor details
+  //************************************************************************** */
 
   Future<void> createDoctor() async {
     DoctorApplicationModel application = DoctorApplicationModel(
@@ -69,9 +90,25 @@ class ApplicationController extends GetxController {
         .set(application.toMap());
   }
 
+
+
+
+
+
+ // Delete Doctor
+  //************************************************************************** */
+
   Future<void> deleteDoctor(String docId) async {
     await db.collection("doctors").doc(docId).delete();
   }
+
+
+
+
+
+
+ // Send Email
+  //************************************************************************** */
 
   Future<void> sendEmail() async {
     try {
@@ -85,12 +122,12 @@ class ApplicationController extends GetxController {
             'Your account has been approved. Your password is: ${passwordcontroller.text}';
 
       final sendReport = await send(message, smtpServer);
-      print(
-          'Message sent: .................................................................................' +
-              sendReport.toString());
+      // print(
+      //     'Message sent: .................................................................................' +
+      //         sendReport.toString());
     } catch (e) {
-      print(
-          'Error sending email: ..........................................................................$e');
+      // print(
+      //     'Error sending email: ..........................................................................$e');
     }
   }
 }

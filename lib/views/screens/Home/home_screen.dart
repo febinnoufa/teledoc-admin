@@ -8,21 +8,30 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child:Scaffold(
+      child: Scaffold(
         appBar: AppBar(
-          title: const Text("TELEDOC",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold ),),centerTitle: true,
+          title: const Text(
+            "TELEDOC",
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          ),
+          centerTitle: true,
           backgroundColor: Colors.white,
           elevation: 0,
         ),
-        body:const Column(
-          children: [
-            SizedBox(height: 90,),
-            DoctorCountWidget(),
-            SizedBox(height: 90,),
-            PatiuntsCountWidget()
-          ],
-        )
-      )
-       );
+        body: LayoutBuilder(
+          builder: (context, constraints) {
+           
+            return const Column(
+              children: [
+                SizedBox(height: 90),
+                DoctorCountWidget(),
+                SizedBox(height: 90),
+                PatiuntsCountWidget(),
+              ],
+            );
+          },
+        ),
+      ),
+    );
   }
 }

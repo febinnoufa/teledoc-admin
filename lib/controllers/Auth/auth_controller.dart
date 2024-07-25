@@ -7,6 +7,14 @@ import 'package:teledocadmin/views/widgets/BottomNav/bottomnav_widget.dart';
 
 class AuthController extends GetxController {
   final LoginController loginController = Get.put(LoginController());
+  RxBool viewpass=true.obs;
+
+
+
+
+
+   // validate Admin
+  //************************************************************************** */
 
   validatadmin() async {
     if (loginController.usernameController.text == "admin" &&
@@ -20,6 +28,10 @@ class AuthController extends GetxController {
     }
   }
 
+
+
+  // Logout Admin
+  //************************************************************************** */
   logout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove('isLoggedIn');

@@ -55,7 +55,7 @@ class SettingsPage extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         title: const Text(
-          "Settings",
+          "Catogary",
           style: TextStyle(color: Colors.black),
         ),
         centerTitle: true,

@@ -7,6 +7,12 @@ class LoginController extends GetxController {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+
+
+
+   // Validate
+  //************************************************************************** */
+
   String? validateUsername(String? value) {
     if (value == null || value.isEmpty) {
       return 'Please enter your username';
